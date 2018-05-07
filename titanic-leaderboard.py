@@ -65,14 +65,21 @@ def readscores(filename_or_string, asstring=True):
     return data
 
 def calculatescore(data_gt, data_sub):
-    #rights = 0
-    #for k in data_sub:
-    #    if k in data_gt and data_sub[k] == data_gt[k]:
-    #        rights += 1
-
-    rights = sum([1 if x[1] == y[1] else 0 for x, y in zip(data_gt.items(), data_sub.items())])
+    if len(data_gt) > len(data_sub):
+        rights = 0
+        for k in data_sub:
+            if k in data_gt and data_sub[k] == data_gt[k]:
+                rights += 1
+    else:
+        rights = sum([1 if x[1] == y[1] else 0 for x, y in zip(data_gt.items(), data_sub.items())])
 
     return rights / len(data_sub)
+
+def calculatescorewrapper(data_sub):
+    import base64
+    groundtruthunpacked = base64.decodebytes(bytes(groundtruthpacked, "utf-8")).decode("utf-8")
+    data_gt = readscores(groundtruthunpacked, True)
+    return calculatescore(data_gt, data_sub)
 
 def main(dict):
     if not "csv" in dict:
@@ -80,10 +87,7 @@ def main(dict):
         body = "<form action='{}' method='post'>Your submission name+id:<br><input type='text' name='submission'><br>Paste your CSV:<br><textarea name='csv'>key;value</textarea><br><input type='submit' value='Send'></form>".format(baseurl)
     else:
         data_sub = readscores(dict["csv"], True)
-        import base64
-        groundtruthunpacked = base64.decodebytes(bytes(groundtruthpacked, "utf-8")).decode("utf-8")
-        data_gt = readscores(groundtruthunpacked, True)
-        score = calculatescore(data_gt, data_sub)
+        score = calculatescore(data_sub)
 
         if "submission" in dict and dict["submission"]:
             submission = dict["submission"]
@@ -103,3 +107,9 @@ def main(dict):
         body = "Leaderboard!<br>" + leaderboardstr
     html = "<html><title>{}</title><body>{}</body></html>".format(title, body)
     return {"headers": {"Content-Type": "text/html"}, "statusCode": 200, "html": html}
+
+if __name__ == "__main__":
+    import sys
+    data_sub = readscores(sys.argv[1], asstring=False)
+    score = calculatescorewrapper(data_sub)
+    print(score)

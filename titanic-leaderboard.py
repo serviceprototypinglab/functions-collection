@@ -65,10 +65,10 @@ def readscores(filename_or_string, asstring=True):
     return data
 
 def calculatescore(data_gt, data_sub):
-    rights = 0
-    for k in data_sub:
-        if k in data_gt and data_sub[k] == data_gt[k]:
-            rights += 1
+    #rights = 0
+    #for k in data_sub:
+    #    if k in data_gt and data_sub[k] == data_gt[k]:
+    #        rights += 1
 
     rights = sum([1 if x[1] == y[1] else 0 for x, y in zip(data_gt.items(), data_sub.items())])
 

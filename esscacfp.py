@@ -4,13 +4,13 @@ import json
 
 baseurl = "https://openwhisk.eu-de.bluemix.net/api/v1/web/SPLab_ESSCA18/default/esscacfp.html"
 
-# Cloudant: https://d33b1646-4e12-4ca3-aa2d-9c64ce77ea54-bluemix.cloudant.com/dashboard.html
+# Cloudant: ...
 cred = {
-  "username": "d33b1646-4e12-4ca3-aa2d-9c64ce77ea54-bluemix",
-  "password": "52522ed8bad3b13912b83186b0aa35c128a9cee9734a55def5df6870e041a4f9",
-  "host": "d33b1646-4e12-4ca3-aa2d-9c64ce77ea54-bluemix.cloudant.com",
+  "username": "...",
+  "password": "...",
+  "host": "...",
   "port": 443,
-  "url": "https://d33b1646-4e12-4ca3-aa2d-9c64ce77ea54-bluemix:52522ed8bad3b13912b83186b0aa35c128a9cee9734a55def5df6870e041a4f9@d33b1646-4e12-4ca3-aa2d-9c64ce77ea54-bluemix.cloudant.com"
+  "url": "...",
 }
 
 tmpl_header = """

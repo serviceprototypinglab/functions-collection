@@ -2,6 +2,8 @@ import requests
 import uuid
 import json
 
+# Variant for lightning talks
+
 baseurl = "https://openwhisk.eu-de.bluemix.net/api/v1/web/SPLab_ESSCA18/default/esscacfp.html"
 
 # Cloudant: ...
@@ -10,21 +12,21 @@ cred = {
   "password": "...",
   "host": "...",
   "port": 443,
-  "url": "...",
+  "url": "..."
 }
 
 tmpl_header = """
     <img src='http://essca2018.servicelaboratory.ch/essca2018-logo.png'>
 
     <p>
-    <b>ESSCA 2018 CfP: Industry/community talk proposals</b> [via esscacfp cloud function - <a href='https://github.com/serviceprototypinglab/functions-collection/blob/master/esscacfp.py'>fork on Github</a>]
+    <b>ESSCA 2018 CfP: Lightning talk proposals</b> [via esscacfp cloud function - <a href='https://github.com/serviceprototypinglab/functions-collection/blob/master/esscacfp.py'>fork on Github</a>]
     </p>
 """
 
 tmpl_call = tmpl_header + """
     <p>
-    Hello! We'd like to have you as speaker in <a href='http://essca2018.servicelaboratory.ch/'>ESSCA 2018</a> on December 21st in Zurich.
-    Please provide us information about the talk or demo you want to give. We will review all proposals and come back to you within a few days.
+    Hello! We'd like to have you as lightning talk speaker in <a href='http://essca2018.servicelaboratory.ch/'>ESSCA 2018</a> on December 21st in Zurich.
+    Please provide us information about the short 5' talk you want to give. We will review all proposals and come back to you within a few days.
     </p>
 
     <form action='{}' method='post'>
@@ -33,7 +35,7 @@ tmpl_call = tmpl_header + """
     E-mail address:<br><input type='text' name='email' size='40'><br>
     Talk title:<br><input type='text' name='title' size='40'><br>
     Talk description:<br><textarea name='description' cols='45' rows='10'></textarea><br>
-    Preferred duration in minutes (e.g. 15, 30, 45):<br><input type='text' name='duration' size='40'><br>
+    Preferred duration in minutes (e.g. 15, 30, 45):<br><input type='text' name='duration' size='40' value='5' readonly="readonly"><br>
     Any comments, references to previous talks, questions:<br><textarea name='comments' cols='45' rows='10'></textarea><br>
     <input type='submit' value='Send talk proposal'></form>
 """
@@ -48,7 +50,7 @@ def main(dict):
     url = "https://{}:{}@{}".format(cred["username"], cred["password"], cred["host"])
 
     if not "email" in dict:
-        title = "ESSCA 2018 CfP: Industry/community talk proposals"
+        title = "ESSCA 2018 CfP: Lightning talk proposals"
         body = tmpl_call.format(baseurl)
     else:
         data = {}

@@ -1,5 +1,6 @@
 # Format: id;survived
-baseurl = "https://openwhisk.ng.bluemix.net/api/v1/web/ZHAW%20ISPROT_ISPROT17/default/titanic.html"
+#baseurl = "https://openwhisk.ng.bluemix.net/api/v1/web/ZHAW%20ISPROT_ISPROT17/default/titanic.html"
+baseurl = "https://openwhisk.eu-de.bluemix.net/api/v1/web/SPLab_Scripting/default/titanic.html"
 
 groundtruthpacked = """
 aWQ7c3Vydml2ZWQNCjU7MA0KMTA7MA0KMTU7MQ0KMjA7MA0KMjU7MQ0KMzA7MQ0KMzU7MA0KNDA7
@@ -87,7 +88,7 @@ def main(dict):
         body = "<form action='{}' method='post'>Your submission name+id:<br><input type='text' name='submission'><br>Paste your CSV:<br><textarea name='csv'>key;value</textarea><br><input type='submit' value='Send'></form>".format(baseurl)
     else:
         data_sub = readscores(dict["csv"], True)
-        score = calculatescore(data_sub)
+        score = calculatescorewrapper(data_sub)
 
         if "submission" in dict and dict["submission"]:
             submission = dict["submission"]
